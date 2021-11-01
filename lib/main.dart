@@ -1,5 +1,6 @@
 import 'package:chat_demo_app/pages/initial_page.dart';
 import 'package:flutter/material.dart';
+import './packages.dart';
 
 void main() {
   runApp(const MyChatApp());
@@ -12,8 +13,9 @@ class MyChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter chat app',
+      theme: MyThemeData(),
       initialRoute: InitialPage.routeName,
-      // onGenerateRoute: ,
+      onGenerateRoute: RouteGenerator.onGnerateRoute,
     );
   }
 }
