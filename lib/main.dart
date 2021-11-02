@@ -1,4 +1,5 @@
 // import 'package:chat_demo_app/pages/initial_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import './packages.dart';
@@ -17,7 +18,15 @@ class MyChatApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter chat app',
       theme: MyThemeData(context),
-      initialRoute: AuthPage.routeName,
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (_, snapshot) {
+          if (snapshot.hasData) {
+            return ChatPage();
+          }
+          return AuthPage();
+        },
+      ),
       onGenerateRoute: RouteGenerator.onGnerateRoute,
     );
   }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../packages.dart';
@@ -10,7 +11,33 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('test'),
+        title: const Text('Chat'),
+        actions: [
+          DropdownButton(
+            icon: const Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
+            items: [
+              DropdownMenuItem(
+                child: Row(
+                  children: const [
+                    Icon(Icons.exit_to_app),
+                    SizedBox(width: 8),
+                    Text('Logout'),
+                  ],
+                ),
+                value: 'logout',
+                onTap: () => FirebaseAuth.instance.signOut(),
+              )
+            ],
+            onChanged: (itemIdentifier) {
+              if (itemIdentifier == 'logout') {
+                FirebaseAuth.instance.signOut();
+              }
+            },
+          )
+        ],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
