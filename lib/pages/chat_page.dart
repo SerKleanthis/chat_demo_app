@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'dart:developer';
+import '../packages.dart';
 
 class ChatPage extends StatelessWidget {
-  static const routeName = '/chat-page';
+  static const routeName = '/chat';
   const ChatPage({Key? key}) : super(key: key);
 
   @override
@@ -13,39 +12,37 @@ class ChatPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('test'),
       ),
-      body: Text('dasdas'),
-
-      // FutureBuilder(
-      //   future: Firebase.initializeApp(),
-      //   builder: (_, snapshot) {
-      //     if (snapshot.hasError) {
-      //       return const Center(child: Text('Error'));
-      //     }
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return const Center(child: CircularProgressIndicator());
-      //     }
-      //     return ListView.builder(
-      //       itemBuilder: (_, index) => Container(
-      //         padding: const EdgeInsets.all(8),
-      //         child: Text('Chat app'),
-      //       ),
-      //       itemCount: 10,
-      //     );
-      //   },
-      // ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('chats/7aYUWcDI7chU1EbPEMMq/messages')
+            .snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return const Center(child: Text('ERROR!'));
+          }
+          final docs = snapshot.data!.docs;
+          return ListView.builder(
+            itemBuilder: (_, index) {
+              return Container(
+                padding: const EdgeInsets.all(8),
+                child: Text(docs[index]['text']),
+              );
+            },
+            itemCount: snapshot.data!.docs.length,
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          // await Firebase.initializeApp();
-
-          FirebaseFirestore.instance
-              .collection('chats/7aYUWcDI7chU1EbPEMMq/messages')
-              .snapshots()
-              .listen((data) {
-            data.docs.forEach((element) {
-              print(element['text']);
-            });
-          });
+          // FirebaseFirestore.instance
+          //     .collection('chats/7aYUWcDI7chU1EbPEMMq/messages')
+          //     .add(
+          //       'text': 'Heyyyyydysdysy!',
+          //     );
         },
       ),
     );
