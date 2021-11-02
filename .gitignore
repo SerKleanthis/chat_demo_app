@@ -47,3 +47,4 @@ app.*.map.json
 
 # Local Files
 .env
+/android/app/google-services.json

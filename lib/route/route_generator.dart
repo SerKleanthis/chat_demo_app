@@ -1,3 +1,4 @@
+import 'package:chat_demo_app/pages/chat_page.dart';
 import 'package:chat_demo_app/pages/initial_page.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,8 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => InitialPage());
+      case '/chat-page':
+        return MaterialPageRoute(builder: (_) => ChatPage());
     }
 
     return _errorRoute();

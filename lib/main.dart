@@ -1,8 +1,11 @@
-import 'package:chat_demo_app/pages/initial_page.dart';
+// import 'package:chat_demo_app/pages/initial_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import './packages.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyChatApp());
 }
 
@@ -14,7 +17,7 @@ class MyChatApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter chat app',
       theme: MyThemeData(),
-      initialRoute: InitialPage.routeName,
+      initialRoute: ChatPage.routeName,
       onGenerateRoute: RouteGenerator.onGnerateRoute,
     );
   }
