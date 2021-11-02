@@ -16,7 +16,7 @@ class MyChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter chat app',
-      theme: MyThemeData(),
+      theme: MyThemeData(context),
       initialRoute: AuthPage.routeName,
       onGenerateRoute: RouteGenerator.onGnerateRoute,
     );
