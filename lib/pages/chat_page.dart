@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../packages.dart';
 
 class ChatPage extends StatelessWidget {
@@ -39,39 +38,50 @@ class ChatPage extends StatelessWidget {
           )
         ],
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('chats/7aYUWcDI7chU1EbPEMMq/messages')
-            .snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return const Center(child: Text('ERROR!'));
-          }
-          final docs = snapshot.data!.docs;
-          return ListView.builder(
-            itemBuilder: (_, index) {
-              return Container(
-                padding: const EdgeInsets.all(8),
-                child: Text(docs[index]['text']),
-              );
-            },
-            itemCount: snapshot.data!.docs.length,
-          );
-        },
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Expanded(child: Messages()),
+            NewMessage(),
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          // FirebaseFirestore.instance
-          //     .collection('chats/7aYUWcDI7chU1EbPEMMq/messages')
-          //     .add(
-          //       'text': 'Heyyyyydysdysy!',
-          //     );
-        },
-      ),
+
+      // StreamBuilder(
+      //   stream: FirebaseFirestore.instance
+      //       .collection('chats/7aYUWcDI7chU1EbPEMMq/messages')
+      //       .snapshots(),
+      //   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return const Center(child: CircularProgressIndicator());
+      //     }
+      //     if (snapshot.hasError) {
+      //       return const Center(child: Text('ERROR!'));
+      //     }
+      //     final docs = snapshot.data!.docs;
+      //     return ListView.builder(
+      //       itemBuilder: (_, index) {
+      //         return Container(
+      //           padding: const EdgeInsets.all(8),
+      //           child: Text(docs[index]['text']),
+      //         );
+      //       },
+      //       itemCount: snapshot.data!.docs.length,
+      //     );
+      //   },
+      // ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.add),
+      //   onPressed: () {
+      //     // FirebaseFirestore.instance
+      //     //     .collection('chats/7aYUWcDI7chU1EbPEMMq/messages')
+      //     //     .add(
+      //     //       'text': 'Heyyyyydysdysy!',
+      //     //     );
+      //   },
+      // ),
     );
   }
 }

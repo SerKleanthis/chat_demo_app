@@ -9,4 +9,7 @@ export './route/route_generator.dart';
 export './theme/theme_data.dart';
 
 // Widgets
-export './widgets/auth_form.dart';
+export 'widgets/auth/auth_form.dart';
+export 'widgets/chat/messages.dart';
+export 'widgets/chat/new_message.dart';
+export 'widgets/chat/message_bubble.dart';

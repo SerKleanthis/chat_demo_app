@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../packages.dart';
+import '../../packages.dart';
 
 class AuthForm extends StatefulWidget {
   var isLoading;
@@ -104,7 +104,7 @@ class _nameState extends State<AuthForm> {
                         ? const CircularProgressIndicator()
                         : ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Theme.of(context).primaryColor,
+                              primary: Theme.of(context).colorScheme.primary,
                             ),
                             onPressed: _trySubmit,
                             child: Text(
@@ -113,7 +113,7 @@ class _nameState extends State<AuthForm> {
                           ),
                     TextButton(
                       style: TextButton.styleFrom(
-                          primary: Theme.of(context).primaryColor),
+                          primary: Theme.of(context).colorScheme.primary),
                       child: Text(
                         _isLogin
                             ? 'Create account'

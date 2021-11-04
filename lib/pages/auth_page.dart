@@ -65,7 +65,7 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: AuthForm(
         key: UniqueKey(),
         submitFn: _submitAuthForm,
